@@ -31,6 +31,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "43f9f617-351e-4e8c-95f4-baf05578eb7b"
+      }
+    },
+    "owner": "michaelsun195"
   }
 }
