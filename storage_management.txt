@@ -1,0 +1,32 @@
+There are three primary methods of storage that we are considering for our app on iOS are: the
+AsyncStorage API, databases using SQL/SQLite, and cloud storage using a service like Firebase. Each
+of these options has distinct pros and cons as noted below.
+
+AsyncStorage
+Pros:
+- Built in storage API for React Native that has extensive documentation and is extremely compatible
+as a result
+- Persistent storage that retains stored data while app is not running/updating
+Cons:
+- Can be slower than other storage options such as SQL/SQLite databases due to the API calls
+- Can face storage limits on certain devices
+- Can generally only be used to store text data; other APIs should be used for media storage
+
+SQL/SQLite
+Pros:
+- One of the fastest options for storing and retrieving data
+- Easily scalable as storage demands increase
+Cons:
+- Steeper learning curve to integrate with React Native
+- Works best with well-structured data but can struggle otherwise; also more difficult to use
+with media storage
+
+Cloud storage (e.g. Firebase)
+Pros:
+- Frees up local storage when app is not in use
+- App data will not be lost if software/hardware issues occur on the device
+Cons:
+- Can face performance issues due to the multiple API calls required to fetch data each time they
+are needed
+- Potential privacy concerns with the data being stored in a remote cloud service
+- Limited storage available for free
