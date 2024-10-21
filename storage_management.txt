@@ -1,4 +1,4 @@
-There are three primary methods of storage that we are considering for our app on iOS are: the
+There are three primary methods of storage that we are considering for our app on iOS: the
 AsyncStorage API, databases using SQL/SQLite, and cloud storage using a service like Firebase. Each
 of these options has distinct pros and cons as noted below.
 
