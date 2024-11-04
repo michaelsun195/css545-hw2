@@ -1,0 +1,19 @@
+For the app created for this assignment, each possible state can be described by three simple
+variables: uploaded image, text color, and input text. These variables can be modified at will to
+demonstrate that the app will always preserve the data of these variables even if the app is closed
+or otherwise forcibly terminated.
+
+For our project, the state of the app can be distinguished by which events have reservations made
+by the user and the information the user has inputted into the user profile. For example, in the
+initial state of our app, the user should not see any events under the list of events they have
+RSVP'd for but they should still be able to see a list of nearby events in general under the event
+search page; the user profile section should also be empty as the user has not yet inputted that
+information. Once a user finishes setting up their profile and RSVP's for two events, those two
+events should appear on the home screen under the list of RSVP'd events and the user profile should
+contain some basic information about the user, such as name and general interests. These changes in
+state are important as we want to ensure that the user does not lose information on RSVP'd events
+or previously inputted profile info when the user exits the app, even if the app crashes or is
+otherwise forcibly terminated. As a result, whenever the user adds an event or makes any
+modification to their profile, a new state is reached and the app will immediately save information
+describing the current state using AsyncStorage. This keeps any changes made continuously displayed
+and saves that info regardless of whether the user is in the app or not.

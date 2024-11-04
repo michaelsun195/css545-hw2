@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
-import { Text, View, Button, Image } from "react-native";
+import { Text, View, Button, Image, TextInput } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const pickImage = async () => {
@@ -56,21 +56,36 @@ const loadTextColorFromLocal = async () => {
     }
 };
 
+const loadInputTextFromLocal = async () => {
+    try {
+        const savedText = await AsyncStorage.getItem('inputText');
+        return savedText;
+    } catch (error) {
+        console.log('Error loading input text:', error);
+        return null;
+    }
+};
+
 export default function Index() {
 
     const [imageUri, setImageUri] = useState<string | null>(null);
     const [localImageUri, setLocalImageUri] = useState<string | null>(null);
     const [textColor, setTextColor] = useState('black'); // Default text color is black
+    const [inputText, setInputText] = useState('');
 
     useEffect(() => {
         const loadImage = async () => {
             const loadedImageUri = await loadImageFromLocal();
             const savedColor = await loadTextColorFromLocal();
+            const savedInputText = await loadInputTextFromLocal();
             if (loadedImageUri) {
                 setLocalImageUri(loadedImageUri);
             }
             if (savedColor) {
                 setTextColor(savedColor);
+            }
+            if (savedInputText) {
+                setInputText(savedInputText);
             }
         };
         loadImage();
@@ -85,6 +100,11 @@ export default function Index() {
         }
     };
 
+    const handleInputChange = async (text: string) => {
+        setInputText(text);
+        await AsyncStorage.setItem('inputText', text); // Save the input text to AsyncStorage
+    };
+
     const toggleTextColor = async () => {
         const newColor = textColor === 'black' ? 'red' : 'black'; // Toggle between black and red
         setTextColor(newColor);
@@ -95,6 +115,20 @@ export default function Index() {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Button title="Pick an Image" onPress={handlePickImage} />
             <Button title="Toggle Text Color" onPress={toggleTextColor} />
+            <TextInput
+                style={{
+                    height: 40,
+                    borderColor: 'gray',
+                    borderWidth: 1,
+                    paddingHorizontal: 10,
+                    width: '80%',
+                    marginVertical: 10,
+                    color: textColor,
+                }}
+                placeholder="Enter text..."
+                value={inputText}
+                onChangeText={handleInputChange}
+            />
             {imageUri && <Text style={{ color: textColor }}>Picked Image: {imageUri}</Text>}
             {localImageUri && (
                 <>
